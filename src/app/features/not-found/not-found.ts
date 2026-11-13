@@ -1,9 +1,11 @@
 import { Component } from '@angular/core';
+import { RouterLink } from '@angular/router';
+
+import { EmptyState } from '../../shared/components/empty-state/empty-state';
 
 @Component({
   selector: 'app-not-found',
-  imports: [],
+  imports: [RouterLink, EmptyState],
   templateUrl: './not-found.html',
-  styleUrl: './not-found.css',
 })
 export class NotFound {}

@@ -9,9 +9,6 @@ const OLD_FAVORITES_KEY = 'movie-explorer-favorites'; // the key used before Mov
 
 @Injectable({ providedIn: 'root' })
 export class FavoritesService {
-toggleFavorite(_t15: MovieDetails) {
-throw new Error('Method not implemented.');
-}
   private storage = inject(StorageService);
 
   // The list of favorite movies, loaded when the app starts
@@ -34,6 +31,10 @@ throw new Error('Method not implemented.');
       this.favoritesSignal.update((list) => [...list, toStoredMovie(movie)]);
     }
     this.storage.setList(FAVORITES_KEY, this.favoritesSignal());
+  }
+
+  toggleFavorite(movie: MovieDetails): void {
+    this.toggle(movie);
   }
 
   private loadFavorites(): Movie[] {
