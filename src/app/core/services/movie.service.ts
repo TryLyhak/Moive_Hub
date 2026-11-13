@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { MovieCategory } from '../models/movie-category';
 
-import { environment } from '../../environments/environment';
+import { environment } from '../../../environments/environment';
 import {
   Credits,
   DiscoverFilters,

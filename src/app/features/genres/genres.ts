@@ -1,8 +1,8 @@
 import { Component, inject, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
 
-import { MovieService } from '../../services/movie.service';
-import { Genre } from '../../models/movie.model';
+import { MovieService } from '../../core/services/movie.service';
+import { Genre } from '../../core/models/movie.model';
 import { ErrorState } from '../../shared/components/error-state/error-state';
 
 // An emoji for each genre name (unknown genres get 🎬)

@@ -5,12 +5,12 @@ import { Title } from '@angular/platform-browser';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { Subject, catchError, forkJoin, of, switchMap, tap } from 'rxjs';
 
-import { PersonService } from '../../../services/person.service';
-import { PersonDetails, CreditMovie } from '../../../models/personal.model';
-import { MovieRow } from '../../../components/movie-row/movie-row';
+import { PersonService } from '../../../core/services/person.service';
+import { PersonDetails, CreditMovie } from '../../../core/models/personal.model';
+import { MovieRow } from '../../../shared/components/movie-row/movie-row';
 import { EmptyState } from '../../../shared/components/empty-state/empty-state';
 import { ErrorState } from '../../../shared/components/error-state/error-state';
-import { ApiError } from '../../../models/api-error.model';
+import { ApiError } from '../../../core/models/api-error.model';
 
 // How many movies to show before the "Show all" button
 const FILMOGRAPHY_PREVIEW = 15;

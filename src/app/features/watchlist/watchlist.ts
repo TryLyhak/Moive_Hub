@@ -1,7 +1,7 @@
 import { Component, computed, inject, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
 
-import { MovieService } from '../../services/movie.service';
+import { MovieService } from '../../core/services/movie.service';
 import { WatchlistService } from '../../core/services/watchlist.service';
 import { RatingBadge } from '../../shared/components/rating-badge/rating-badge';
 import { EmptyState } from '../../shared/components/empty-state/empty-state';

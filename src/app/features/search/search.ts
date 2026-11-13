@@ -4,9 +4,9 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subject, catchError, of, switchMap, tap } from 'rxjs';
 
-import { MovieService } from '../../services/movie.service';
-import { Movie, MovieResponse } from '../../models/movie.model';
-import { MovieCard } from '../../components/movie-card/movie-card';
+import { MovieService } from '../../core/services/movie.service';
+import { Movie, MovieResponse } from '../../core/models/movie.model';
+import { MovieCard } from '../../shared/components/movie-card/movie-card';
 import { SearchBox } from '../../shared/components/search-box/search-box';
 
 import { EmptyState } from '../../shared/components/empty-state/empty-state';

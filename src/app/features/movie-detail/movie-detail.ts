@@ -4,18 +4,18 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { DomSanitizer, SafeResourceUrl, Title } from '@angular/platform-browser';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { Subject, catchError, forkJoin, of, switchMap, tap } from 'rxjs';
-
-import { MovieService } from '../../services/movie.service';
-import { CastMember, CrewMember, Movie, MovieDetails, Video } from '../../models/movie.model';
 import { RuntimePipe } from '../../shared/pipes/runtime.pipe';
 import { RatingBadge } from '../../shared/components/rating-badge/rating-badge';
 import { EmptyState } from '../../shared/components/empty-state/empty-state';
 import { ErrorState } from '../../shared/components/error-state/error-state';
-import { MovieRow } from '../../components/movie-row/movie-row';
-import { PersonService } from '../../services/person.service';
-import { FavoritesService } from '../../services/favorites.service';
-import { ApiError } from '../../models/api-error.model';
+import { ApiError } from '../../core/models/api-error.model';
+import { MovieDetails, CastMember, CrewMember, Video, Movie } from '../../core/models/movie.model';
+import { FavoritesService } from '../../core/services/favorite.service';
+import { MovieService } from '../../core/services/movie.service';
+import { PersonService } from '../../core/services/person.service';
 import { WatchlistService } from '../../core/services/watchlist.service';
+import { MovieRow } from '../../shared/components/movie-row/movie-row';
+
 
 @Component({
   selector: 'app-movie-detail',

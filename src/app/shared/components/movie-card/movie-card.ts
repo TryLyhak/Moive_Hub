@@ -1,11 +1,11 @@
 import { Component, computed, inject, input } from '@angular/core';
 import { RouterLink } from '@angular/router';
 
-import { Movie } from '../../models/movie.model';
-import { MovieService } from '../../services/movie.service';
-import { FavoritesService } from '../../services/favorites.service';
-import { WatchlistService } from '../../core/services/watchlist.service';
-import { RatingBadge } from '../../shared/components/rating-badge/rating-badge';
+import { Movie } from '../../../core/models/movie.model';
+import { MovieService } from '../../../core/services/movie.service';
+import { FavoritesService } from '../../../core/services/favorite.service';
+import { WatchlistService } from '../../../core/services/watchlist.service';
+import { RatingBadge } from '../rating-badge/rating-badge';
 
 @Component({
   selector: 'app-movie-card',

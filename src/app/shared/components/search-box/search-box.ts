@@ -12,8 +12,8 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { Router, RouterLink } from '@angular/router';
 import { Subject, catchError, debounceTime, distinctUntilChanged, map, of, switchMap } from 'rxjs';
 
-import { MovieService } from '../../../services/movie.service';
-import { Movie } from '../../../models/movie.model';
+import { MovieService } from '../../../core/services/movie.service';
+import { Movie } from '../../../core/models/movie.model';
 
 const MIN_CHARACTERS = 2; // suggestions start after 2 letters
 const DEBOUNCE_MS = 400; // wait this long after the last keystroke

@@ -2,7 +2,7 @@ import { Injectable, computed, inject, signal } from '@angular/core';
 
 import { Movie, MovieDetails } from '../models/movie.model';
 import { isStoredMovie, toStoredMovie } from '../models/collection.model';
-import { StorageService } from '../core/services/storage.service';
+import { StorageService } from './storage.service';
 
 const FAVORITES_KEY = 'moviehub_favorites';
 const OLD_FAVORITES_KEY = 'movie-explorer-favorites'; // the key used before MovieVerse

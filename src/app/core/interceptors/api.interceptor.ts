@@ -2,7 +2,7 @@ import { HttpErrorResponse, HttpInterceptorFn } from '@angular/common/http';
 import { catchError, retry, throwError, timer } from 'rxjs';
 
 import { environment } from '../../../environments/environment';
-import { ApiError } from '../../models/api-error.model';
+import { ApiError } from '../models/api-error.model';
 
 // Turn a status code into a message a normal user can understand
 function getFriendlyMessage(status: number): string {

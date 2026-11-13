@@ -3,10 +3,10 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { Subject, catchError, combineLatest, of, switchMap, tap } from 'rxjs';
 
-import { MovieService } from '../../../services/movie.service';
-import { Genre, Movie } from '../../../models/movie.model';
-import { SORT_OPTIONS, SortKey, isSortKey } from '../../../models/sort-option';
-import { MovieCard } from '../../../components/movie-card/movie-card';
+import { MovieService } from '../../../core/services/movie.service';
+import { Genre, Movie } from '../../../core/models/movie.model';
+import { SORT_OPTIONS, SortKey, isSortKey } from '../../../core/models/sort-option';
+import { MovieCard } from '../../../shared/components/movie-card/movie-card';
 
 import { EmptyState } from '../../../shared/components/empty-state/empty-state';
 import { ErrorState } from '../../../shared/components/error-state/error-state';

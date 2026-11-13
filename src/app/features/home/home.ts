@@ -2,21 +2,21 @@ import { Component, computed, inject, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { forkJoin } from 'rxjs';
 
-import { MovieService } from '../../services/movie.service';
-import { Movie } from '../../models/movie.model';
-import { MOVIE_CATEGORIES, MovieCategory } from '../../models/movie-category';
-import { MovieRow } from '../../components/movie-row/movie-row';
+import { MovieService } from '../../core/services/movie.service';
+import { Movie } from '../../core/models/movie.model';
+import { MOVIE_CATEGORIES, MovieCategory } from '../../core/models/movie-category';
+import { MovieRow } from '../../shared/components/movie-row/movie-row';
 
 import { ErrorState } from '../../shared/components/error-state/error-state';
 import { RatingBadge } from '../../shared/components/rating-badge/rating-badge';
 import { LoadingSkeleton } from '../../shared/components/loading-skeleton/.loading-skeleton';
 
 @Component({
-  selector: 'app-landing',
+  selector: 'app-home',
   imports: [RouterLink, MovieRow, LoadingSkeleton, ErrorState, RatingBadge],
-  templateUrl: './landing.html',
+  templateUrl:'./home.html',
 })
-export class Landing {
+export class Home {
   private movieService = inject(MovieService);
 
   // The template loops over this list to draw one row per category

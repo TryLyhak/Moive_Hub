@@ -7,8 +7,8 @@ import { Subject, catchError, debounceTime, distinctUntilChanged, of, switchMap,
 import { EmptyState } from '../../shared/components/empty-state/empty-state';
 import { ErrorState } from '../../shared/components/error-state/error-state';
 import { LoadingSkeleton } from '../../shared/components/loading-skeleton/.loading-skeleton';
-import { PersonService } from '../../services/person.service';
-import { Person } from '../../models/personal.model';
+import { PersonService } from '../../core/services/person.service';
+import { Person } from '../../core/models/personal.model';
 
 @Component({
   selector: 'app-actors',

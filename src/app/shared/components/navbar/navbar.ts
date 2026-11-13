@@ -1,7 +1,6 @@
 import { Component, inject, signal } from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
-
-import { FavoritesService } from '../../../services/favorites.service';
+import { FavoritesService } from '../../../core/services/favorite.service';
 import { WatchlistService } from '../../../core/services/watchlist.service';
 
 @Component({

@@ -1,7 +1,7 @@
 import { Injectable, computed, inject, signal } from '@angular/core';
 
-import { Movie } from '../../models/movie.model';
-import { WatchlistItem, isWatchlistItem, toStoredMovie } from '../../models/collection.model';
+import { Movie } from '../models/movie.model';
+import { WatchlistItem, isWatchlistItem, toStoredMovie } from '../models/collection.model';
 import { StorageService } from './storage.service';
 
 const WATCHLIST_KEY = 'movieverse_watchlist';
