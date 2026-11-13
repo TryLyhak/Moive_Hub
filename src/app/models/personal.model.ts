@@ -20,11 +20,19 @@ export interface PersonResponse {
 export interface PersonDetails extends Person {
   biography: string;
   birthday: string | null;
+  deathday: string | null; // empty if the person is still alive
   place_of_birth: string | null;
+}
+
+// A movie in an actor's filmography (a Movie plus a few extra fields)
+export interface CreditMovie extends Movie {
+  popularity: number;
+  character: string; // the role the actor played
+  adult: boolean;
 }
 
 // The movies an actor has appeared in
 export interface PersonMovieCredits {
   id: number;
-  cast: Movie[];
+  cast: CreditMovie[];
 }
