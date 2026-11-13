@@ -1,21 +1,109 @@
-<!-- Page container: centered, with a maximum width -->
 <div class="mx-auto max-w-7xl p-6">
-  <header class="mb-6 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-    <h1 class="text-3xl font-bold text-white">
-      @if (searchText()) {
-        Results for "{{ searchText() }}"
-      } @else {
-        Popular Movies 🎬
+  <header class="mb-6 flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
+    <div>
+      <h1 class="text-3xl font-bold text-white">
+        @if (hasFilters()) {
+          Discover Movies 🎞️
+        } @else {
+          {{ currentCategory().title }}
+        }
+      </h1>
+      @if (hasFilters() && filterSummary()) {
+        <p class="mt-1 text-sm text-muted">{{ filterSummary() }}</p>
       }
-    </h1>
+    </div>
 
-    <input
-      type="search"
-      placeholder="Search movies..."
-      (input)="onSearchInput($event)"
-      class="w-full rounded-lg bg-card px-4 py-2 text-white outline-none placeholder:text-muted focus:ring-2 focus:ring-accent sm:w-80"
-    />
+    <a routerLink="/search" class="text-sm text-muted transition hover:text-white">
+      🔍 Search by title
+    </a>
   </header>
+
+  <!-- Category tabs (clicking one clears the filters) -->
+  <nav class="mb-6 flex gap-2 overflow-x-auto pb-2" aria-label="Movie categories">
+    @for (item of categories; track item.key) {
+      <a
+        routerLink="/movies"
+        [queryParams]="{ category: item.key }"
+        [class.bg-accent]="!hasFilters() && category() === item.key"
+        [class.bg-card]="hasFilters() || category() !== item.key"
+        class="shrink-0 rounded-full px-4 py-2 text-sm font-semibold text-white transition hover:bg-accent-hover"
+      >
+        {{ item.label }}
+      </a>
+    }
+  </nav>
+
+  <!-- Filters -->
+  <section
+    class="mb-8 grid gap-3 rounded-xl bg-surface p-4 sm:grid-cols-2 lg:grid-cols-5 lg:items-end"
+    aria-label="Filters"
+  >
+    <div>
+      <label for="filter-genre" class="mb-1 block text-xs text-muted">Genre</label>
+      <select
+        id="filter-genre"
+        (change)="onFilterChange('genre', $event)"
+        class="w-full rounded-lg bg-card px-3 py-2 text-white outline-none focus:ring-2 focus:ring-accent"
+      >
+        <option value="" [selected]="genreId() === null">All genres</option>
+        @for (genre of genres(); track genre.id) {
+          <option [value]="genre.id" [selected]="genre.id === genreId()">{{ genre.name }}</option>
+        }
+      </select>
+    </div>
+
+    <div>
+      <label for="filter-sort" class="mb-1 block text-xs text-muted">Sort by</label>
+      <select
+        id="filter-sort"
+        (change)="onFilterChange('sort', $event)"
+        class="w-full rounded-lg bg-card px-3 py-2 text-white outline-none focus:ring-2 focus:ring-accent"
+      >
+        <option value="" [selected]="sortKey() === null">Default order</option>
+        @for (option of sortOptions; track option.key) {
+          <option [value]="option.key" [selected]="option.key === sortKey()">{{ option.label }}</option>
+        }
+      </select>
+    </div>
+
+    <div>
+      <label for="filter-year" class="mb-1 block text-xs text-muted">Release year</label>
+      <select
+        id="filter-year"
+        (change)="onFilterChange('year', $event)"
+        class="w-full rounded-lg bg-card px-3 py-2 text-white outline-none focus:ring-2 focus:ring-accent"
+      >
+        <option value="" [selected]="year() === null">Any year</option>
+        @for (item of years; track item) {
+          <option [value]="item" [selected]="item === year()">{{ item }}</option>
+        }
+      </select>
+    </div>
+
+    <div>
+      <label for="filter-rating" class="mb-1 block text-xs text-muted">Minimum rating</label>
+      <select
+        id="filter-rating"
+        (change)="onFilterChange('rating', $event)"
+        class="w-full rounded-lg bg-card px-3 py-2 text-white outline-none focus:ring-2 focus:ring-accent"
+      >
+        <option value="" [selected]="minRating() === null">Any rating</option>
+        @for (item of ratingOptions; track item) {
+          <option [value]="item" [selected]="item === minRating()">{{ item }}+ ⭐</option>
+        }
+      </select>
+    </div>
+
+    @if (hasFilters()) {
+      <button
+        type="button"
+        (click)="clearFilters()"
+        class="rounded-lg bg-white/10 px-4 py-2 text-sm font-semibold text-white transition hover:bg-white/20"
+      >
+        ✕ Clear filters
+      </button>
+    }
+  </section>
 
   <!-- Show exactly one of: loading, error, movies, or nothing found -->
   @if (isLoading()) {
@@ -29,7 +117,7 @@
       }
     </section>
 
-    <nav class="mt-8 flex items-center justify-center gap-4">
+    <nav class="mt-8 flex items-center justify-center gap-4" aria-label="Pagination">
       <button
         (click)="goToPage(currentPage() - 1)"
         [disabled]="currentPage() === 1"
@@ -50,9 +138,19 @@
     </nav>
   } @else {
     <app-empty-state
-      icon="🔍"
-      title="No movies found"
-      message="Try a different title or check your spelling."
-    />
+      icon="🎞️"
+      title="No movies match"
+      message="Try removing a filter, a lower minimum rating, or a different year."
+    >
+      @if (hasFilters()) {
+        <button
+          type="button"
+          (click)="clearFilters()"
+          class="rounded-lg bg-accent px-5 py-2 font-semibold text-white transition hover:bg-accent-hover"
+        >
+          Clear filters
+        </button>
+      }
+    </app-empty-state>
   }
 </div>

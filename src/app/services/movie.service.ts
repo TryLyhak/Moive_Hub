@@ -103,7 +103,11 @@ export class MovieService {
 
     if (filters.genreId) params['with_genres'] = filters.genreId;
     if (filters.year) params['primary_release_year'] = filters.year;
-    if (filters.minRating) params['vote_average.gte'] = filters.minRating;
+    if (filters.minRating) {
+      params['vote_average.gte'] = filters.minRating;
+      // Ignore movies with only a few votes, so the rating means something
+      params['vote_count.gte'] = 100;
+    }
 
     // When sorting by rating, ignore movies with only a few votes
     // When sorting by release date, hide movies that are not released yet

@@ -1,19 +1,20 @@
-@import "tailwindcss";
+@import 'tailwindcss';
 
 /* MovieVerse color palette from the project spec */
 @theme {
   --color-background: #0b0d14; /* main page background */
-  --color-surface: #151925;    /* navbar, footer, sections */
-  --color-card: #222838;       /* movie cards */
-  --color-accent: #e50914;     /* primary actions */
+  --color-surface: #151925; /* navbar, footer, sections */
+  --color-card: #222838; /* movie cards */
+  --color-accent: #e50914; /* primary actions */
   --color-accent-hover: #f6212b;
-  --color-muted: #9ca3af;      /* secondary text */
+  --color-muted: #9ca3af; /* secondary text */
 
-  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-sans: 'Inter', ui-sans-serif, system-ui, sans-serif;
 }
 
 body {
   background-color: var(--color-background);
+  color-scheme: dark; /* dark scrollbars and dropdown lists */
   color: #ffffff;
   font-family: var(--font-sans);
   -webkit-font-smoothing: antialiased;
