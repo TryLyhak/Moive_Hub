@@ -1,0 +1,74 @@
+<header
+  class="fixed inset-x-0 top-0 z-50 border-b border-white/10 bg-background/90 backdrop-blur"
+>
+  <nav
+    class="mx-auto flex max-w-7xl items-center justify-between px-4 py-4 sm:px-6"
+    aria-label="Main navigation"
+  >
+    <!-- Logo -->
+    <a routerLink="/" (click)="closeMenu()" class="text-2xl font-extrabold tracking-tight">
+      Movie<span class="text-accent">HUB</span>
+    </a>
+
+    <!-- Desktop links: color is set on the list, the active link overrides it -->
+    <ul class="hidden items-center gap-6 text-muted md:flex">
+      @for (link of links; track link.path) {
+        <li>
+          <a
+            [routerLink]="link.path"
+            routerLinkActive="text-white"
+            [routerLinkActiveOptions]="{ exact: link.path === '/' }"
+            class="transition hover:text-white"
+          >
+            {{ link.label }}
+            @if (link.path === '/favorites' && favoritesService.count() > 0) {
+              <span class="ml-1 rounded-full bg-accent px-2 py-0.5 text-xs font-semibold text-white">
+                {{ favoritesService.count() }}
+              </span>
+            }
+          </a>
+        </li>
+      }
+    </ul>
+
+    <!-- Search and mobile menu buttons -->
+    <div class="flex items-center gap-3">
+      <a
+        routerLink="/search"
+        aria-label="Search movies"
+        class="rounded-full bg-surface px-3 py-2 transition hover:bg-card"
+      >
+        🔍
+      </a>
+
+      <button
+        type="button"
+        (click)="toggleMenu()"
+        [attr.aria-expanded]="isMenuOpen()"
+        aria-label="Toggle menu"
+        class="rounded-lg bg-surface px-3 py-2 md:hidden"
+      >
+        {{ isMenuOpen() ? '✕' : '☰' }}
+      </button>
+    </div>
+  </nav>
+
+  <!-- Mobile menu (only shown when open) -->
+  @if (isMenuOpen()) {
+    <ul class="space-y-1 border-t border-white/10 bg-surface px-4 py-3 text-muted md:hidden">
+      @for (link of links; track link.path) {
+        <li>
+          <a
+            [routerLink]="link.path"
+            routerLinkActive="text-white"
+            [routerLinkActiveOptions]="{ exact: link.path === '/' }"
+            (click)="closeMenu()"
+            class="block rounded-lg px-3 py-2 transition hover:bg-card hover:text-white"
+          >
+            {{ link.label }}
+          </a>
+        </li>
+      }
+    </ul>
+  }
+</header>

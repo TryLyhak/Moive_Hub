@@ -1,0 +1,32 @@
+<a [routerLink]="['/movies', movie().id]" class="block">
+  <article
+    class="group overflow-hidden rounded-xl bg-card shadow-lg transition hover:-translate-y-1 hover:shadow-2xl"
+  >
+    <div class="relative">
+      <img
+        [src]="posterUrl"
+        [alt]="movie().title"
+        loading="lazy"
+        class="aspect-[2/3] w-full object-cover"
+      />
+
+      <!-- Rating badge (top right) -->
+      <app-rating-badge class="absolute right-2 top-2" [rating]="movie().vote_average" />
+
+      <!-- Heart button (top left) -->
+      <button
+        type="button"
+        (click)="toggleFavorite($event)"
+        [attr.aria-label]="isFavorite() ? 'Remove from favorites' : 'Add to favorites'"
+        class="absolute left-2 top-2 flex h-9 w-9 items-center justify-center rounded-full bg-black/70 text-lg transition hover:scale-110"
+      >
+        {{ isFavorite() ? '❤️' : '🤍' }}
+      </button>
+    </div>
+
+    <div class="p-3">
+      <h2 class="line-clamp-1 font-semibold text-white">{{ movie().title }}</h2>
+      <p class="text-sm text-muted">{{ releaseYear }}</p>
+    </div>
+  </article>
+</a>

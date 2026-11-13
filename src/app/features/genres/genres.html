@@ -1,0 +1,26 @@
+<div class="mx-auto max-w-7xl p-6">
+  <h1 class="mb-2 text-3xl font-bold text-white">Explore by Genre</h1>
+  <p class="mb-6 text-muted">Pick a genre to discover movies.</p>
+
+  @if (isLoading()) {
+    <div class="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4" role="status" aria-label="Loading">
+      @for (item of placeholders; track $index) {
+        <div class="h-28 animate-pulse rounded-xl bg-card"></div>
+      }
+    </div>
+  } @else if (errorMessage(); as message) {
+    <app-error-state [message]="message" (retry)="loadGenres()" />
+  } @else {
+    <section class="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4">
+      @for (genre of genres(); track genre.id) {
+        <a
+          [routerLink]="['/genres', genre.id]"
+          class="flex h-28 flex-col items-center justify-center gap-2 rounded-xl bg-card p-4 text-center transition hover:-translate-y-1 hover:bg-accent"
+        >
+          <span class="text-3xl" aria-hidden="true">{{ iconFor(genre.name) }}</span>
+          <span class="font-semibold text-white">{{ genre.name }}</span>
+        </a>
+      }
+    </section>
+  }
+</div>

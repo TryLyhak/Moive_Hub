@@ -8,7 +8,7 @@
   },
   "include": [
     "src/**/*.ts"
-  ],
+, "src/app/shared/components/loading-skeleton/.loading-skeleton.ts"  ],
   "exclude": [
     "src/**/*.spec.ts"
   ]

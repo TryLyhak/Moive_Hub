@@ -1,0 +1,61 @@
+<div class="pb-10">
+  @if (isLoading()) {
+    <div class="p-6">
+      <app-loading-skeleton [count]="10" />
+    </div>
+  } @else if (errorMessage(); as message) {
+    <app-error-state [message]="message" (retry)="loadMovies()" />
+  } @else {
+    <!-- Hero banner -->
+    @if (heroMovie(); as hero) {
+      <section class="relative mb-10 h-[60vh] min-h-96 overflow-hidden">
+        <img
+          [src]="backdropUrl(hero.backdrop_path)"
+          [alt]="hero.title"
+          class="absolute inset-0 h-full w-full object-cover"
+        />
+        <div class="absolute inset-0 bg-gradient-to-t from-background via-background/50 to-transparent"></div>
+        <div class="absolute inset-0 bg-gradient-to-r from-background/80 to-transparent"></div>
+
+        <div class="relative flex h-full max-w-2xl flex-col justify-end gap-4 p-6 pb-10 sm:p-10">
+          <p class="text-sm font-semibold uppercase tracking-widest text-accent">
+            Trending this week
+          </p>
+          <h1 class="text-4xl font-extrabold text-white sm:text-5xl">{{ hero.title }}</h1>
+
+          <!-- Rating and release year -->
+          <p class="flex items-center gap-3 text-sm text-slate-200">
+            <app-rating-badge [rating]="hero.vote_average" />
+            <span>{{ hero.release_date?.slice(0, 4) }}</span>
+          </p>
+
+          <p class="line-clamp-3 text-slate-200">{{ hero.overview }}</p>
+
+          <div class="flex gap-3">
+            <a
+              [routerLink]="['/movies', hero.id]"
+              class="rounded-lg bg-accent px-5 py-2 font-semibold text-white transition hover:bg-accent-hover"
+            >
+              View details
+            </a>
+            <a
+              routerLink="/movies"
+              class="rounded-lg bg-white/20 px-5 py-2 font-semibold text-white transition hover:bg-white/30"
+            >
+              Browse all
+            </a>
+          </div>
+        </div>
+      </section>
+    }
+
+    <!-- One row per category: Trending, Popular, Now Playing, Upcoming, Top Rated -->
+    @for (category of categories; track category.key) {
+      <app-movie-row
+        [title]="category.title"
+        [movies]="lists()[category.key]"
+        [category]="category.key"
+      />
+    }
+  }
+</div>
