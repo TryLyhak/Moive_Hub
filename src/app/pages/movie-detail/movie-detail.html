@@ -99,6 +99,13 @@
             >
               {{ FavoritesService.isFavorite(m.id) ? '❤️ In favorites' : '🤍 Add to favorites' }}
             </button>
+            <button
+              type="button"
+              (click)="watchlistService.toggle(m)"
+              class="rounded-lg bg-card px-4 py-2 font-semibold transition hover:bg-white/20"
+            >
+              {{ watchlistService.isInWatchlist(m.id) ? '✅ In watchlist' : '📌 Add to watchlist' }}
+            </button>
 
             @if (trailer()) {
               <button
@@ -152,11 +159,17 @@
               [attr.aria-label]="'Play ' + t.name"
               class="group relative h-full w-full"
             >
-              <img [src]="trailerThumbnail(t.key)" [alt]="t.name" class="h-full w-full object-cover" />
+              <img
+                [src]="trailerThumbnail(t.key)"
+                [alt]="t.name"
+                class="h-full w-full object-cover"
+              />
               <span
                 class="absolute inset-0 flex items-center justify-center bg-black/40 transition group-hover:bg-black/20"
               >
-                <span class="flex h-16 w-16 items-center justify-center rounded-full bg-accent text-2xl">
+                <span
+                  class="flex h-16 w-16 items-center justify-center rounded-full bg-accent text-2xl"
+                >
                   ▶
                 </span>
               </span>

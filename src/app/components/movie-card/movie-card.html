@@ -22,6 +22,16 @@
       >
         {{ isFavorite() ? '❤️' : '🤍' }}
       </button>
+
+      <!-- Watchlist button (under the heart) -->
+      <button
+        type="button"
+        (click)="toggleWatchlist($event)"
+        [attr.aria-label]="isInWatchlist() ? 'Remove from watchlist' : 'Add to watchlist'"
+        class="absolute left-2 top-14 flex h-9 w-9 items-center justify-center rounded-full bg-black/70 text-lg transition hover:scale-110"
+      >
+        {{ isInWatchlist() ? '✅' : '📌' }}
+      </button>
     </div>
 
     <div class="p-3">

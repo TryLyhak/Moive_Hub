@@ -1,7 +1,8 @@
 import { Component, inject, signal } from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
-import { FavoritesService } from '../../../services/favorites';
 
+import { FavoritesService } from '../../../services/favorites.service';
+import { WatchlistService } from '../../../core/services/watchlist.service';
 
 @Component({
   selector: 'app-navbar',
@@ -9,8 +10,8 @@ import { FavoritesService } from '../../../services/favorites';
   templateUrl: './navbar.html',
 })
 export class Navbar {
-  // public so the template can show the favorites count
-  favoritesService = inject(FavoritesService);
+  private favoritesService = inject(FavoritesService);
+  private watchlistService = inject(WatchlistService);
 
   // Is the mobile menu open?
   isMenuOpen = signal(false);
@@ -24,6 +25,13 @@ export class Navbar {
     { label: 'Favorites', path: '/favorites' },
     { label: 'Watchlist', path: '/watchlist' },
   ];
+
+  // The number shown in the red badge next to a link (0 = no badge)
+  countFor(path: string): number {
+    if (path === '/favorites') return this.favoritesService.count();
+    if (path === '/watchlist') return this.watchlistService.count();
+    return 0;
+  }
 
   toggleMenu(): void {
     this.isMenuOpen.update((isOpen) => !isOpen);

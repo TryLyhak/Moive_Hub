@@ -3,7 +3,8 @@ import { RouterLink } from '@angular/router';
 
 import { Movie } from '../../models/movie.model';
 import { MovieService } from '../../services/movie.service';
-import { FavoritesService } from '../../services/favorites';
+import { FavoritesService } from '../../services/favorites.service';
+import { WatchlistService } from '../../core/services/watchlist.service';
 import { RatingBadge } from '../../shared/components/rating-badge/rating-badge';
 
 @Component({
@@ -14,11 +15,13 @@ import { RatingBadge } from '../../shared/components/rating-badge/rating-badge';
 export class MovieCard {
   private movieService = inject(MovieService);
   private favoritesService = inject(FavoritesService);
+  private watchlistService = inject(WatchlistService);
 
   movie = input.required<Movie>();
 
-  // Is this card's movie a favorite? Updates automatically.
+  // These update automatically when the lists change
   isFavorite = computed(() => this.favoritesService.isFavorite(this.movie().id));
+  isInWatchlist = computed(() => this.watchlistService.isInWatchlist(this.movie().id));
 
   get posterUrl(): string {
     return this.movieService.getImageUrl(this.movie().poster_path);
@@ -32,6 +35,12 @@ export class MovieCard {
     // The card is a link, so stop the click from opening the detail page
     event.preventDefault();
     event.stopPropagation();
-    this.favoritesService.toggleFavorite(this.movie());
+    this.favoritesService.toggle(this.movie());
+  }
+
+  toggleWatchlist(event: Event): void {
+    event.preventDefault();
+    event.stopPropagation();
+    this.watchlistService.toggle(this.movie());
   }
 }

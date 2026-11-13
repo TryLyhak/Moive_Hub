@@ -1,8 +1,5 @@
 // One movie, with only the fields we need from TMDB
 export interface Movie {
-genres: any;
-runtime: any;
-tagline: any;
   id: number;
   title: string;
   overview: string;

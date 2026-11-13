@@ -1,1 +1,112 @@
-<p>watchlist works!</p>
+<div class="mx-auto max-w-7xl p-6">
+  <h1 class="mb-6 text-3xl font-bold text-white">My Watchlist 📌</h1>
+
+  @if (watchlistService.count() === 0) {
+    <!-- Nothing saved yet -->
+    <app-empty-state
+      icon="📌"
+      title="Your watchlist is empty"
+      message="Tap the 📌 button on any movie to save it for later."
+    >
+      <a
+        routerLink="/movies"
+        class="rounded-lg bg-accent px-5 py-2 font-semibold text-white transition hover:bg-accent-hover"
+      >
+        Browse movies
+      </a>
+    </app-empty-state>
+  } @else {
+    <!-- Filter buttons: All / Unwatched / Watched -->
+    <div class="mb-6 flex flex-wrap gap-2" role="group" aria-label="Filter watchlist">
+      @for (option of filters; track option.key) {
+        <button
+          type="button"
+          (click)="filter.set(option.key)"
+          [attr.aria-pressed]="filter() === option.key"
+          [class.bg-accent]="filter() === option.key"
+          [class.bg-card]="filter() !== option.key"
+          class="rounded-full px-4 py-2 text-sm font-semibold text-white transition hover:bg-accent-hover"
+        >
+          {{ option.label }} ({{ countFor(option.key) }})
+        </button>
+      }
+    </div>
+
+    @if (visibleItems().length > 0) {
+      <section class="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
+        @for (item of visibleItems(); track item.id) {
+          <article class="overflow-hidden rounded-xl bg-card shadow-lg">
+            <a [routerLink]="['/movies', item.id]" class="relative block">
+              <img
+                [src]="posterUrl(item.poster_path)"
+                [alt]="item.title"
+                loading="lazy"
+                [class.opacity-50]="item.watched"
+                class="aspect-[2/3] w-full object-cover transition"
+              />
+              <app-rating-badge class="absolute right-2 top-2" [rating]="item.vote_average" />
+
+              @if (item.watched) {
+                <span
+                  class="absolute left-2 top-2 rounded-full bg-green-600 px-2 py-1 text-xs font-semibold text-white"
+                >
+                  ✓ Watched
+                </span>
+              }
+            </a>
+
+            <div class="space-y-2 p-3">
+              <a
+                [routerLink]="['/movies', item.id]"
+                class="line-clamp-1 block font-semibold text-white transition hover:text-accent"
+              >
+                {{ item.title }}
+              </a>
+              <p class="text-sm text-muted">{{ year(item.release_date) }}</p>
+
+              <div class="flex gap-2">
+                <!-- Mark as watched / not watched (the movie stays in the list) -->
+                <button
+                  type="button"
+                  (click)="watchlistService.toggleWatched(item.id)"
+                  [class]="item.watched ? 'bg-white/10 hover:bg-white/20' : 'bg-accent hover:bg-accent-hover'"
+                  class="flex-1 rounded-lg px-3 py-2 text-sm font-semibold text-white transition"
+                >
+                  {{ item.watched ? 'Unmark' : 'Mark watched' }}
+                </button>
+
+                <button
+                  type="button"
+                  (click)="watchlistService.remove(item.id)"
+                  [attr.aria-label]="'Remove ' + item.title + ' from watchlist'"
+                  class="rounded-lg bg-white/10 px-3 py-2 text-sm text-white transition hover:bg-white/20"
+                >
+                  ✕
+                </button>
+              </div>
+            </div>
+          </article>
+        }
+      </section>
+    } @else if (filter() === 'watched') {
+      <app-empty-state
+        icon="🍿"
+        title="No watched movies yet"
+        message="Tap Mark watched on a movie after you see it."
+      />
+    } @else {
+      <app-empty-state
+        icon="🎉"
+        title="Nothing left to watch"
+        message="You have watched everything on your list. Time to find more movies!"
+      >
+        <a
+          routerLink="/movies"
+          class="rounded-lg bg-accent px-5 py-2 font-semibold text-white transition hover:bg-accent-hover"
+        >
+          Browse movies
+        </a>
+      </app-empty-state>
+    }
+  }
+</div>

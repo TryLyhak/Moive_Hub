@@ -13,8 +13,9 @@ import { EmptyState } from '../../shared/components/empty-state/empty-state';
 import { ErrorState } from '../../shared/components/error-state/error-state';
 import { MovieRow } from '../../components/movie-row/movie-row';
 import { PersonService } from '../../services/person.service';
-import { FavoritesService } from '../../services/favorites';
+import { FavoritesService } from '../../services/favorites.service';
 import { ApiError } from '../../models/api-error.model';
+import { WatchlistService } from '../../core/services/watchlist.service';
 
 @Component({
   selector: 'app-movie-detail',
@@ -38,6 +39,7 @@ export class MovieDetail {
   private titleService = inject(Title);
   // public so the template can use the favorite button
   FavoritesService = inject(FavoritesService);
+  watchlistService = inject(WatchlistService);
 
   movieId = signal(0);
   movie = signal<MovieDetails | null>(null);

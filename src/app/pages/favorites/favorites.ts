@@ -1,6 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { FavoritesService } from '../../services/favorites';
+import { FavoritesService } from '../../services/favorites.service';
 import { MovieCard } from '../../components/movie-card/movie-card';
 import { EmptyState } from '../../shared/components/empty-state/empty-state';
 
